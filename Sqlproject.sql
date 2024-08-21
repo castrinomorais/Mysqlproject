@@ -220,13 +220,6 @@ values
 select * from Sales;
 
 Create Table Location (
-locationid int primary key,
-locationname varchar(30)
-);
-
-select * from sales;
-
-Create Table Location (
 Locationid int primary key,
 Locationname varchar(30)
 );
@@ -253,7 +246,7 @@ on S. Locationid=L.Locationid and S.Sales between 300000 and 500000;
 
 /*Write a SQL statement to display names of those salesman who have ‘Raj’ in their
 names.*/
-select S.Sname from Sales as S where S.Sname like '%Raj%';
+select Sname from Sales  where Sname like '%Raj%';
 
 /* Write a SQL statement to display SName and LocationName of all the records where
 the sales is more than 100000.*/
@@ -289,9 +282,9 @@ select *  from Location;
 select * from Sales;
 /* Write a SQL statement to display SName,LocationName and Sales of record which
 has highest sale in table.*/
-select Sales.Sname, Location.Locationname,Sales.Sales
+select S.Sname, L.Locationname,S.Sales
 from Location as L inner join Sales as S
-on S.Locationid=L.Locationid and  Sales.Sales = (
+on S.Locationid=L.Locationid and  S.Sales = (
 select max(Sales) from Sales );
 
 create Table Loan(
@@ -338,11 +331,11 @@ Employee_Salary int
 
 Insert into Employee
 values
-(1 ,'Arun Tiwari', 50000),
-(2, 'Sachin Rathi', 64000),
-(3 ,'Harshal Pathak',48000),
-(4 	,'Arjun Kuwar', 46000),
-(5 	,'Sarthak Gada', 62000);
+(1,'Arun Tiwari',50000),
+(2,'Sachin Rathi',64000),
+(3,'Harshal Pathak',48000),
+(4,'Arjun Kuwar',46000),
+(5,'Sarthak Gada',62000);
 
 create table Department(
 DepartmentID int ,
@@ -351,11 +344,11 @@ EmployeeID int
 );
 Insert into Department
 values
-(3 ,	'Marketing', 	4),
-(4 ,	'Accounts', 	5),
-(5, 	'Development', 	7),
-(6, 	'HR', 	        9),
-(7, 	'Sales',       10);
+(3 ,'Marketing',4),
+(4 ,'Accounts',5),
+(5,'Development',7),
+(6,'HR',9),
+(7,'Sales',10);
 
 select * from Department ;
 select * from Employee ;
@@ -436,13 +429,13 @@ values
 (70013  ,3045.6 ,"2012-04-25", 3002 ,5001);
 
 show Tables;
-/* SQL query to find all the orders issued by the
-salesman 'Paul Adam'. Return ord_no, purch_amt, ord_date, customer_id and
-salesman_id.*/
+
 select * from salesman;
 select * from orders;
 select * from customer;
-
+/* SQL query to find all the orders issued by the
+salesman 'Paul Adam'. Return ord_no, purch_amt, ord_date, customer_id and
+salesman_id.*/
 select * from orders
 where Salesmanid=(select Salesmanid  from salesman where salesmanname='Paul Adam');
 
@@ -1549,9 +1542,9 @@ dep_id int
   (69000 , 'JULIUS'   , 'CLERK'    , 66928 , '1991-12-03' , 1050.00 , null ,3001),
   (69324 , 'MARKER'  , 'CLERK'     , 67832 , '1992-01-23' , 1400.00 , null ,1001);
  select * from employee;
- truncate table employee;
 
-/* Procedure to get the total number of employees according to job description*/
+
+/* Procedure to get the total number of employees as per job description*/
 Delimiter $$
 create procedure employment(
 IN jdesc varchar(18),
