@@ -37,15 +37,15 @@ where GRADE>2;
 
 /*Sql query to display customer who have grade above 2 and belongs to city madurai*/
  select * from Customer
-where GRADE>2 and CITY='madurai';
+where GRADE>2 and CITY in('madurai');
 
 /*Sql query to display customer who have either  grade above 2 or belongs to city madurai*/
  select * from Customer
-where GRADE>2 or CITY='madurai';
+where GRADE>2 or CITY in('madurai');
 
 /* Sql query to display customer who have either grade not above 2 or belongs to city madurai*/
 select * from Customer
-where GRADE<=2 or CITY='madurai';
+where GRADE<=2 or CITY in('madurai');
 
 
 
@@ -241,30 +241,30 @@ values
 select * from location;
 /*Write a SQL statement to display SId, SName, LocationId with corresponding
 Location names.*/
-select Sales.Sid,Sales.Sname,Sales.Locationid,Location.Locationname
-from Sales join Location
-on Sales. Locationid=Location.Locationid;
+select S.Sid,S.Sname,S.Locationid,L.Locationname
+from Sales as S join Location as L
+on S. Locationid=L.Locationid;
 
 /*Write a SQL statement to display SName, Sales and corresponding location names
 who have achieved Sales between 300000 and 500000.*/
-select Sales.Sname, Sales.Sales,Location.Locationname
-from Sales join Location
-on Sales. Locationid=Location.Locationid and Sales.Sales between 300000 and 500000;
+select S.Sname, S.Sales,L.Locationname
+from Sales as S join Location as L
+on S. Locationid=L.Locationid and S.Sales between 300000 and 500000;
 
 /*Write a SQL statement to display names of those salesman who have ‘Raj’ in their
 names.*/
-select Sales.Sname from Sales where Sales.Sname like '%Raj%';
+select S.Sname from Sales as S where S.Sname like '%Raj%';
 
 /* Write a SQL statement to display SName and LocationName of all the records where
 the sales is more than 100000.*/
-select Sales.Sname, Location.Locationname
-from Sales join Location
-on Sales.Locationid=Location.Locationid and Sales.Sales>100000;
+select S.Sname, L.Locationname
+from Sales as S join Location as L
+on S.Locationid=L.Locationid and S.Sales>100000;
 
 /* Write a SQL statement to list all the SName who sold in ‘Tuty’ and ‘Madurai’.*/
-select Sales.Sname
-from Sales join Location
-on Sales.Locationid=Location.Locationid and Location.Locationname in('Tuticorin','Madurai');
+select S.Sname
+from Sales as S join Location as L
+on S.Locationid=L.Locationid and L.Locationname in('Tuticorin','Madurai');
 
 /* Write a SQL statement to display all the LocationId from both the tables.*/
 SELECT Locationid 
@@ -277,21 +277,21 @@ FROM Location;
 
 
 /*Write a SQL statement to display all the distinct LocationId from both the tables.*/
-select distinct Sales.Locationid, Location.Locationid
-from Sales join Location
-on Sales.Locationid=Location.Locationid;
+select distinct S.Locationid, L.Locationid
+from Sales as S join Location as L
+on S.Locationid=L.Locationid;
 
 /*Write a SQL statement to display common LocationId from both the tables.*/
-select Sales.Locationid, Location.Locationid
-from Sales join Location
-on Sales.Locationid=Location.Locationid;
+select S.Locationid, L.Locationid
+from Sales as S join Location as L
+on S.Locationid=L.Locationid;
 select *  from Location;
 select * from Sales;
 /* Write a SQL statement to display SName,LocationName and Sales of record which
 has highest sale in table.*/
 select Sales.Sname, Location.Locationname,Sales.Sales
-from Location inner join Sales
-on Sales.Locationid=Location.Locationid and  Sales.Sales = (
+from Location as L inner join Sales as S
+on S.Locationid=L.Locationid and  Sales.Sales = (
 select max(Sales) from Sales );
 
 create Table Loan(
@@ -320,15 +320,15 @@ Insert into Borrower
 values
 (1 	,'Sonakshi Dixit', 1),
 (2 	,'Shital Garg', 4),
-(3 ,'Swara Joshi ',	5),
-(5,'Swati Bose', 7),
+(3 , 'Swara Joshi',	5),
+(5,  'Swati Bose', 7),
 (6 	,'Asha Kapoor', 10),
 (7 	,'Nandini Shah',9);
 select * from Borrower ;
 /* To display the CustName and Loan Amount */
-select Borrower.CustName, Loan.Amount
-from Borrower Left join Loan
-on Borrower.LoanID=Loan.LoanId; 
+select B.CustName, L.Amount
+from Borrower as B Left join Loan as L
+on B.LoanID=L.LoanId; 
 
 create Table Employee(
 EmployeeID int,
@@ -338,10 +338,10 @@ Employee_Salary int
 
 Insert into Employee
 values
-(1 	,'Arun Tiwari', 50000),
-(2,'Sachin Rathi', 	64000),
-(3 ,'Harshal Pathak' ,48000),
-(4 	,'Arjun Kuwar' , 46000),
+(1 ,'Arun Tiwari', 50000),
+(2, 'Sachin Rathi', 64000),
+(3 ,'Harshal Pathak',48000),
+(4 	,'Arjun Kuwar', 46000),
 (5 	,'Sarthak Gada', 62000);
 
 create table Department(
@@ -1567,7 +1567,7 @@ Delimiter ;
 call employment('CLERK', @total);
 select @total;
 
--- Drop procedure IF EXISTS employment; 
+
 /*To show a message of employees getting and not getting commission using case*/
 select emp_id, emp_name, 
 CASE 
